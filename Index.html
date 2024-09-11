@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> @lif food grocery co pvt ltd</title>  
+  <script src="https://unpkg.com/vue@3.2.0"></script>
+  <script src="https://unpkg.com/vue-router@4.0.0"></script>
+  <script type="module" src="/src/main.js"></script>
+  
+  
+  <style>
+    body {
+      font-family: 'Lato', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Fullscreen overlay */
+    .overlay {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: rgba(109, 199, 112);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.5s ease;
+    }
+
+    .overlay-content {
+      color: white;
+      text-align: center;
+      font-size: 36px;
+    }
+
+    /* Bouncing animation */
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(90px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    /* When the overlay is closed, set opacity to 0 */
+    .overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .overlay-content img {
+      max-width: 100%;
+      height: 150%; /* Maintain aspect ratio */
+      animation: bounce 2s infinite; /* Apply bouncing animation */
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <router-link class="nav-link" to="/">Home</router-link>
+  <router-link class="nav-link" to="/about">About</router-link>
+  
+  <!-- Splash screen -->
+  <div v-if="showSplash" class="overlay">
+    <div class="overlay-content">
+      <img class="bouncing" src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png" alt="Trulli">
+      <h3> Alif Food & Grocery </h3>
+    </div>
+  </div>
+
+  <!-- Main content will be rendered by Vue Router -->
+  <router-view v-else></router-view>
+</div>
+<template id="login-template">
+<section class="vh-100" v-if="loginform">
+  <div class="container py-5 h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+      <div class="col-md-8 col-lg-7 col-xl-6">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg"
+          class="img-fluid" alt="Phone image">
+      </div>
+      <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+      <p class="text-center  text-danger">{{errorMessage}}</p>
+        <form >
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+          <label class="form-label" for="form1Example13">Mobile Number :</label>
+            <input type="number" id="form1Example13" placeholder="please enter your mobile No" class="form-control form-control-lg" v-model="username"/>
+            
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+          <label class="form-label" for="form1Example23">Password :</label>
+            <input type="password" id="form1Example23" class="form-control form-control-lg" v-model="password" placeholder="please enter your password"/>
+            
+          </div>
+
+          <div class="d-flex justify-content-around align-items-center mb-4">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input success" type="checkbox" value="" id="form1Example3" checked />
+              <label class="form-check-label" for="form1Example3"> Remember me </label>
+            </div>
+            
+          </div>
+
+          <!-- Submit button -->
+          <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+          <button type="submit" class="btn btn-success btn-lg"@click.prevent="submitForm">Sign in</button>
+</div>
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
+          </div>
+<div class="d-flex justify-content-around align-items-center mb-4 success">
+    <router-link class="nav-link" to="/signup"><a href="" class="text-success">create account</a></router-link>
+    <router-link class="nav-link" to="/contact">
+    <a href="" class="text-success">Forgot password?</a>
+    </router-link>
+</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="text-center bg-success" v-if="isloading" >
+  <div class="spinner-border" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+</template>
+ <script id="login">
+    const LoginC = {
+  template: "#login-template",
+  data: function() {
+    return {
+      username: "",
+      password: "",
+      errorMessage: "",
+      masterPwd: '10key01',
+      isloading: false,
+      loginform: true,
+    };
+  },
+  methods: {
+    submitForm() {
+      this.isloading = true;
+      this.loginform = false;
+      // Hash the password
+      const hashedPassword = CryptoJS.SHA256(this.password).toString();
+      // Concatenate the hashed password to the master password
+      const combinedPassword = this.masterPwd + hashedPassword;
+      const url = this.$store.state.url2 + 'user';
+      const token = this.$store.state.isR_token;
+      axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          const match = response.data.records.find(record => {
+            // Compare username and combined password
+           return record.fields.usermobile === this.username &&
+              record.fields.usermasterpwd === combinedPassword;
+          });
+          const empty1 = this.username === '';
+          const empty2 = this.password === '';
+          if (match) {
+            // Successful login
+            this.$store.state.islog = match;
+            this.$router.push("/");
+          } else if (empty1 || empty2) {
+            this.errorMessage = "Please fill all fields";
+            this.loginform = true;
+          } else {
+            this.loginform = true;
+            this.errorMessage = "Invalid username or password";
+            alert("Wrong credentials");
+           // alert(combinedPassword);
+          }
+        })
+        .catch(error => {
+          this.errorMessage = "An error occurred. Please try again later.";
+        })
+        .finally(() => {
+          this.isloading = false;
+        });
+    }
+  }
+};
+
+
+</script>
+<script>
+  // Define your components
+  const Home = { template: '<h2>Home Page</h2><p>This is the home page content.</p>' };
+  const About = { template: '<h2>About Page</h2><p>This is the about page content.</p>' };
+
+  // Define routes
+  const routes = [
+    { path: '/home', component: Home },
+    { path: '/about', component: About }
+    { path: '/', component: LoginC},
+  ];
+
+  // Create Vue Router instance
+  const router = VueRouter.createRouter({
+    history: VueRouter.createWebHashHistory(),
+    routes
+  });
+
+  // Create Vue app
+  const app = Vue.createApp({
+    data() {
+      return {
+        showSplash: true
+      };
+    },
+    mounted() {
+      // Hide the splash screen after 2 seconds
+      setTimeout(() => {
+        this.showSplash = false;
+      }, 5000);
+    }
+  });
+
+  // Use the router in the Vue app
+  app.use(router);
+
+  // Mount the app
+  app.mount('#app');
+</script>
+
+</body>
+</html>

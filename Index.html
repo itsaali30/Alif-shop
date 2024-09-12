@@ -24,6 +24,81 @@
       padding: 0;
     }
 
+
+.container {
+  position: absolute;
+  width: 60vw;
+  height: 27vh;
+  display: flex;   
+  
+  
+  
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: #66cc33;
+  width: 200px;
+  height: 220px;
+  position: absolute;
+  border: 0px solid #66cc33;
+  animation: move 20s infinite;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.card-img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+.card-content {
+  text-align: center;
+}
+.discount {
+  color: orange;
+  font-weight: bold;
+}
+.box1 {
+  animation-delay: 0s;
+}
+.box2 {
+  animation-delay: 5s;
+}
+.box3 {
+  animation-delay: 10s;
+}
+.box4 {
+  animation-delay: 15s;
+}
+
+/* Keyframes for clockwise movement */
+@keyframes move {
+  0% {
+    left: 15%;
+    top: 0;
+  }
+  25% {
+    left: 90%;
+    top: 0;
+  }
+  50% {
+    left: 90%;
+    top: 90%;
+  }
+  75% {
+    left: 15%;
+    top: 90%;
+  }
+  100% {
+    left: 15%;
+    top: 0;
+  }
+}
+
     /* Fullscreen overlay */
     .overlay {
       height: 100%;
@@ -68,13 +143,68 @@
       height: 150%; 
       animation: bounce 2s infinite; 
     }
+    
+  .nav-link i {
+    font-size: 24px;
+  }
+  .nav-link p {
+    margin: 0;
+    font-size: 12px;
+  }
+  .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+
   </style>
 </head>
 <body>
 
 <div id="app">
-  <router-link class="nav-link" to="/">Home</router-link>
-  <router-link class="nav-link" to="/about">About</router-link>
+
+ 
+  <nav class="navbar fixed-bottom navbar-light bg-light">
+    <div class="container-fluid justify-content-around">
+    <router-link to="/" class="nav-link text-center">
+        <i class="fas fa-home" style="color:#66cc33;"></i>
+        <p>AlifMart</p>      
+</router-link>
+      <router-link to="/grocery" class="nav-link text-center">
+        <i class="fas fa-shopping-basket" style="color:#66cc33;"></i>
+        <p>Grocery</p>
+      </router-link>
+      <router-link to="/restaurant" class="nav-link text-center">
+        <i class="fas fa-utensils" style="color:#66cc33;"></i>
+        <p>Restaurant</p>
+      </router-link>
+  
+      
+      <router-link to="/vegetable" class="nav-link text-center">
+        <i class="fas fa-carrot" style="color:#66cc33;"></i>
+        <p>Vegetable</p>
+      </router-link>
+      <router-link to="/fresh-meat" class="nav-link text-center">
+        <i class="fas fa-drumstick-bite" style="color:#66cc33;"></i>
+        <p>Fresh Meat</p>
+      </router-link>
+      <router-link to="/profile" class="nav-link text-center">
+        <i class="fas fa-user" style="color:#66cc33;"></i>
+        <p>Profile</p>
+      </router-link>
+    </div>
+  </nav>
+
+ 
+ 
+
   
   <!-- Splash screen -->
   <div v-if="showSplash" class="overlay">
@@ -184,25 +314,174 @@
     }
   };
 </script>
+   <script>
+  const store = new Vuex.Store({
+    state: {    
+planuserid:'',
+planusermobile:'',
+planusername:'',
+planUTR:'',
+planuserplan:'',
+planEday:'',
+planstartdate:'',
+planexpirydate:'',
+setupUTR:'',
+setupuserBid:'',
+setupuserNid:'',
+setupuserpAT:'',
+setupuserTAT:'',
+planfinderusermobile:'',
+planfinderutr:'',
+planfinderUtrNo:'',
+islog:'',
+isplan:'',
+isact:'',
+isHistories:'',
+isinput:'916301656096',
+      isR_token:'pat2r1WnKUcw7rkbg.72be11cdde4f980ee6135ea2792faa311eac2e2c14abb5b43c528fd5ebb27764',
+      
+           isW_token:'patX200VGkvIdjhvl.a61788b965c5755ebbb06546d72ca1a6be303bcd947d7d27846d302a6c94bea5',
+      isT_token:'',
+      isP_token:'',     
+      url1:'https://api.airtable.com/v0/appUycLZwpqXOVZsQ/test',
+      url2:'https://api.airtable.com/v0/app2MO1zTW9QaTh9z/',
+      url3:'https://graph.facebook.com/v18.0/',
+      adress:"17-2-954/955 reinbazar",
+           },
+           
+           
+           mutations: {
+    logout(state) {
+      state.islog = '';
+      state.isplan='';
+      state.isact='';
+      state.isHistories='';
+      state.isinput='';
+      
+      
+      router.push("/login"); 
+    },
+    logout2(state) {
+      
+      
+      router.push("/"); 
+    }
+  }    
+  });
+</script>
+<template id="homeC" scoped>
+<div>
+        <div class="d-flex dark justify-content-center my-3 ">
+      <i class="fas fa-location fa-2x" style="color:#66cc33; margin-right: 10px; "></i>           
+      <h3 class="m-0">{{ address }}</h3>
+      
+    </div>
+   
+  <div class="container">
+  <div class="card box1" @click="goToFoodRoute">
+    <img
+      src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png"
+      alt="Food delivery"
+      class="card-img"
+    />
+    <div class="card-content">
+      <h2>FOOD DELIVERY</h2>
+      <p>FOOD YOU ❤️, ON TIME</p>
+      <p class="discount">UP TO 60% OFF</p>
+    </div>
+  </div>
 
+  <div class="card box2">
+    <img
+      src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png"
+      alt="Food delivery"
+      class="card-img"
+    />
+    <div class="card-content">
+      <h2>FOOD DELIVERY</h2>
+      <p>FOOD YOU ❤️, ON TIME</p>
+      <p class="discount">UP TO 60% OFF</p>
+    </div>
+  </div>
+
+  <div class="card box3">
+    <img
+      src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png"
+      alt="Food delivery"
+      class="card-img"
+    />
+    <div class="card-content">
+      <h2>FOOD DELIVERY</h2>
+      <p>FOOD YOU ❤️, ON TIME</p>
+      <p class="discount">UP TO 60% OFF</p>
+    </div>
+  </div>
+
+  <div class="card box4">
+    <img
+      src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png"
+      alt="Food delivery"
+      class="card-img"
+    />
+    <div class="card-content">
+      <h2>FOOD DELIVERY</h2>
+      <p>FOOD YOU ❤️, ON TIME</p>
+      <p class="discount">UP TO 60% OFF</p>
+    </div>
+  </div>
+</div>
+
+    </div>
+    
+   
+   
+ 
+</template>
+<style scoped>
+
+</style>
 <script>
-  // Define components
-  const Home = { template: '<h2>Home Page</h2><p>This is the home page content.</p>' };
-  const About = { template: '<h2>About Page</h2><p>This is the about page content.</p>' };
+  const Grocery = { template: '<div>Grocery</div>' };
+  const Restaurant = { template: '<div>Restaurant</div>' };
+  const Vegetable = { template: '<div>Vegetable</div>' };
+  const FreshMeat = { template: '<div>Fresh Meat</div>' };
+  const Profile = { template: '<div>Profile</div>' };
+  const Home = {
+  template:'#homeC',
+  data() {
+    return {
+      address: ""
+    };
+  },
+  
+  mounted() {
+    this.address = this.$store.state.adress; // Access store state and assign to local data
+  },
+  methods: {
+    goToFoodRoute() {
+      this.$router.push("/Restaurant");
+    },
+  },
+  
+};
 
-  // Define routes
+
+
+
   const routes = [
-    { path: '/home', component: Home },
-    { path: '/about', component: About },
-    { path: '/', component: LoginC }
+    { path: '/', component: Home }, 
+    { path: '/grocery', component: Grocery },
+    { path: '/restaurant', component: Restaurant },
+    { path: '/vegetable', component: Vegetable },
+    { path: '/fresh-meat', component: FreshMeat },
+    { path: '/profile', component: Profile }
   ];
 
-  // Create Vue Router instance
   const router = new VueRouter({
-    mode: 'hash',
     routes
   });
 
+ 
   // Create Vue app
   const app = new Vue({
     el: '#app',
@@ -212,13 +491,15 @@
       };
     },
     mounted() {
+        
       setTimeout(() => {
         this.showSplash = false;
       }, 2000);
     },
-    router
+    router,store
   });
 </script>
 
 </body>
 </html>
+

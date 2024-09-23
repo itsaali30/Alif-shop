@@ -1,40 +1,334 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="stylesheet" type="text/css" href="css/alif.css" />
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>@lif Food Grocery Co Pvt Ltd</title>
+  <meta name="google-signin-client_id" content="329273265898-s22m326kd3flkr7kbaehskfpudfg7ori.apps.googleusercontent.com" />
+  <title>Alif Food Grocery Co Pvt Ltd</title>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
   
   <!-- External Libraries -->
-  
-   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-  
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-router@3/dist/vue-router.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.min.js"></script>
-  
-  
-  <style>
-    body {
-      font-family: 'Lato', sans-serif;
-      margin: 0;
-      padding: 0;
+<style>
+/* Fullscreen overlay */
+    .overlay {
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      background-color: rgba(109, 199, 112);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.2s ease;
     }
-.carousel-item img {
-  max-height: 200px; /* Set the desired height */
-  object-fit: cover; /* Ensure the image covers the area while maintaining its aspect ratio */
+
+    .overlay-content {
+      color: white;
+      text-align: center;
+      font-size: 36px;
+    }
+
+    /* Bouncing animation */
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+      }
+      40% {
+        transform: translateY(90px);
+      }
+      60% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .overlay.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .overlay-content img {
+      max-width: 100%;
+      height: 150%; 
+      animation: bounce 2s infinite; 
+    }
+    
+  .nav-link i {
+    font-size: 24px;
+  }
+  .nav-link p {
+    margin: 0;
+    font-size: 12px;
+  }
+  .search-bar {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            padding: 10px;
+            width: 80%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+#uicon0{
+    width: 260px;
+  height: 260px;
+}
+#uicon i{
+  width: 240px;
+  height: 240px;
+  font-size: 180px;
+  color: #66cc33;
+  border-radius: 90%;
+  
+  /* Centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Shadow */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  
+  /* Animated multi-color shadow and color */
+  animation: colorMove 5s infinite;
+
+  /* Additional styling */
+  margin: 20px auto;
+  text-align: center;
+}
+#uicon img{
+  width: 240px;
+  height: 240px;
+  font-size: 180px;
+  color: #66cc33;
+  border-radius: 90%;
+  
+  /* Centering */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Shadow */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
+  
+  /* Animated multi-color shadow and color */
+  animation: colorMove 5s infinite;
+
+  /* Additional styling */
+  margin: 20px auto;
+  text-align: center;
 }
 
 
+
+@keyframes colorMove {
+  0% {
+      font-size: 180px;
+      width: 240px;
+    height: 24px;
+    color:#66cc33;
+    background-color: #ff9933; /* Saffron */
+    box-shadow: 0 0 20px #ff9933, 0 0 40px #ff9933, 0 0 60px #ff9933;
+  }
+  33% {
+      font-size: 60px;
+      width: 130px;
+    height: 130px;
+    background-color: #ffffff; /* White */
+    box-shadow: 0 0 20px #ffffff, 0 0 40px #ffffff, 0 0 60px #ffffff;
+  }
+  66% { 
+  font-size: 180px;
+  width: 240px;
+    height: 240px;
+    color:white;
+    background-color: #66cc33; /* Green */
+    box-shadow: 0 0 20px #66cc33, 0 0 40px #66cc33, 0 0 60px #66cc33;
+  }
+  100% {
+      font-size: 10px;
+      width: 20px;
+    height: 20px;
+    color:#66cc33;
+    background-color: #ff9933; /* Back to Saffron */
+    box-shadow: 0 0 20px #ff9933, 0 0 40px #ff9933, 0 0 60px #ff9933;
+  }
+}
+
+
+
+.offcanvas-title h5{
+     
+    font-size: 24px; /* Adjust the size as needed */
+    text-align: center;
+}
+
+    
+/* Set the initial width and position for the offcanvas */
+#offcanvasResponsive {
+  width: 50%; /* Slide 20% from the right */
+  right: -50%; /* Hide it initially by placing it off-screen */
+  transition: right 0.4s ease; /* Add a smooth slide effect */
+  position: fixed;
+  top: 0;
+  height: 100%;
+  background-color: white; /* Or any background color */
+  z-index: 1045; /* Ensure it's on top */
+}
+
+/* Show the offcanvas when the class "show" is added */
+#offcanvasResponsive.show {
+  right: 0; /* Slide into view */
+}
+ .offcanvas-footer {
+    position: fixed;
+    bottom: 0;
+    width: 47%;
+    
+    padding: 10px;
+    text-align: center;
+}
+ /*end*/
+ /* Styling with ID */
+  #card2 {
+    width: 50%;
+    height: 520px;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin: 240px auto;
+    background-color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+
+  #card2-img {
+    width: 80px;
+    height: 80px;
+    position: absolute;
+    top:  20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #4CAF50;
+    background-color: #fff;
+  }
+
+  #input-field {
+    width: 100%;
+    padding: 12px;
+    margin: 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+  }
+
+  #card-content {
+    padding-top: 70px;
+  }
+
+  #send-btn, #verify-btn {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+
+  #send-btn:hover, #verify-btn:hover {
+    background-color: #45a049;
+  }
+
+  #verify-btn {
+    background-color: #FF5722;
+  }
+
+  #verify-btn:hover {
+    background-color: #e64a19;
+  }
+
+  /* Adding a Google Sign-In button style */
+  .g_id_signin {
+    width: 205px;
+    padding: 2px;
+    
+    background-color: #66cc33;
+    
+    
+    border-radius: 6px;
+    
+    
+    margin:20px auto;
+  }
+
+  .g_id_signin:hover {
+    background-color: #66cc33;
+  }
+  .brand{
+      
+      display:flex;
+      border: 1px solid #66cc33;
+      
+  }
+  .brand  h1{
+      text-align: center;
+      margin-left :40px;
+      color:#66cc33;
+  }
+  .brand i {
+      color:#66cc33;
+  }
+  
+  /* Ads homes */
+  .carousel-indicators{
+      max-height: 120px;
+      object-fit: cover;
+      position: absolute;
+  }
+  .carousel-inner img {
+    max-width: 240px;
+    max-height: 120px;
+    object-fit: cover;
+  }
+ 
+
+  .carousel-item img {
+    max-height: 200px;
+    object-fit: cover;
+  }
+   .carousel-caption {
+      position: absolute;
+      right: 10px;
+      top: 15%;
+      text-align: right;
+      
+    }
+
+    .carousel-caption h3, .carousel-caption p {
+      color: #2a2b2a;
+      font-size: 24px;
+      font-weight: bold;
+      
+      margin-top:0;
+    }
+/* MARTLIST STYLE*/
 .container {
+    margin-top:20px;
   position: absolute;
   width: 60vw;
   height: 27vh;
@@ -108,79 +402,75 @@
   }
 }
 
-    /* Fullscreen overlay */
-    .overlay {
-      height: 100%;
-      width: 100%;
-      position: fixed;
-      z-index: 1;
-      top: 0;
-      left: 0;
-      background-color: rgba(109, 199, 112);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: opacity 0.2s ease;
-    }
-
-    .overlay-content {
-      color: white;
-      text-align: center;
-      font-size: 36px;
-    }
-
-    /* Bouncing animation */
-    @keyframes bounce {
-      0%, 20%, 50%, 80%, 100% {
-        transform: translateY(0);
-      }
-      40% {
-        transform: translateY(90px);
-      }
-      60% {
-        transform: translateY(-5px);
-      }
-    }
-
-    .overlay.hidden {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .overlay-content img {
-      max-width: 100%;
-      height: 150%; 
-      animation: bounce 2s infinite; 
-    }
-    
-  .nav-link i {
-    font-size: 24px;
-  }
-  .nav-link p {
-    margin: 0;
-    font-size: 12px;
-  }
-  .search-bar {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-        .search-bar input {
-            padding: 10px;
-            width: 80%;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-
-  </style>
+</style>
+  
 </head>
+
 <body>
 
 <div id="app">
+  <!-- Slide screen -->
+<nav class="navbar fixed-top navbar-light my-2 m-1"> 
+ <div class="container-fluid justify-content-between"> <div></div> 
+  <i class="fas fa-user fa-2x" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive" style="color:#66cc33;">
+  </i>
+ </div>
+</nav> 
+ 
+  <!-- Side menu -->
+<div class="offcanvas-sm offcanvas-end" tabindex="-2" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
+<header class="brand"><i class="fas fa-home fa-2x my2"></i><h1 class="header my-1">AlifMart</h1></header>
+<div id="uicon0">
+    <div id="uicon" class="offcanvas-header"v-if="!$store.state.islog">
+        <i  class="fas fa-user" style="color:#66cc33; ">
+        </i> 
+    </div>
+    <div id="uicon" class="offcanvas-header" v-if="$store.state.islog">
+        <img :src="$store.state.G_img" alt="User Image" />
+        </i> 
+    </div>
+    </div>
 
+
+<div class="offcanvas-body">
+    <h5 
+  style="font-size: 24px; text-align: center;" 
+  class="offcanvas-title" 
+  id="offcanvasResponsiveLabel" 
+  v-if="$store.state.islog">
+  {{ $store.state.G_name ? $store.state.G_name : 'guest' }}
+</h5>    
+ <!-- google-login --> 
+<logout-component v-if="$store.state.islog"> </logout-component>
+
+<login-component v-if="!$store.state.islog"></login-component>
+              
+      <router-link v-else to="/profile" class="btn btn-outline-success w-100 mb-3">
+        <i class="fas fa-sign-in-alt"></i> Profile
+      </router-link>   
+      <router-link to="/address" class="btn btn-outline-primary w-100 mb-3" v-if="$store.state.islog">
+        <i class="fas fa-map-marker-alt"></i> Address
+      </router-link>
+      <router-link to="/orders" class="btn btn-outline-info w-100 mb-3"v-if="$store.state.islog">
+        <i class="fas fa-box"></i> Orders
+      </router-link>
+      <router-link to="/ordershistory" class="btn btn-outline-info w-100 mb-3" v-if="$store.state.islog">
+        <i class="fas fa-history"></i> Orders history
+      </router-link>
+      <div id="uicon2" class="offcanvas-footer">
+      <router-link to="/contact" class="btn btn-outline-warning w-100 mb-3">
+      <i class="fas fa-envelope">
+      </i> Contact Us
+      </router-link>      
+  </div>
+  
+  </div>
+  
+     
+</div>
 
   
+  <!-- menubar -->
   <nav class="navbar fixed-bottom navbar-light bg-light">
     <div class="container-fluid justify-content-around">
     <router-link to="/" class="nav-link text-center">
@@ -188,7 +478,7 @@
         <p>AlifMart</p>      
 </router-link>
       <router-link to="/grocery" class="nav-link text-center">
-        <i class="fas fa-shopping-basket" style="color:#66cc33;"></i>
+      <i class="fas fa-shopping-basket" style="color:#66cc33;"></i>
         <p>Grocery</p>
       </router-link>
       <router-link to="/restaurant" class="nav-link text-center">
@@ -202,230 +492,219 @@
         <p>Vegetable</p>
       </router-link>
       <router-link to="/fresh-meat" class="nav-link text-center">
-        <i class="fas fa-drumstick-bite" style="color:#66cc33;"></i>
+      <i class="fas fa-drumstick-bite" style="color:#66cc33;"></i>
         <p>Fresh Meat</p>
       </router-link>
-      <router-link to="/profile" class="nav-link text-center">
-        <i class="fas fa-user" style="color:#66cc33;"></i>
-        <p>Profile</p>
+      <router-link to="/cart" class="nav-link text-center">
+        <i class="fas fa-shopping-cart" style="color:#66cc33;"></i>
+        <p>Carts</p>
       </router-link>
     </div>
   </nav>
-
- 
- 
-
-  
-  <!-- Splash screen -->
-  <div v-if="showSplash" class="overlay">
-    <div class="overlay-content">
-      <img class="bouncing" src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png" alt="Logo">
-      <h3>Alif Food & Grocery Mart</h3>
-    </div>
-  </div>
-
-  <!-- Main content -->
-  <router-view v-else></router-view>
+  <router-view></router-view>
 </div>
-
-<template id="login-template">
-  <section class="vh-100" v-if="loginform">
-    <div class="container py-5 h-100">
-      <div class="row d-flex align-items-center justify-content-center h-100">
-        <div class="col-md-8 col-lg-7 col-xl-6">
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.svg" class="img-fluid" alt="Phone image">
-        </div>
-        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-          <p class="text-center text-danger">{{errorMessage}}</p>
-          <form>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form1Example13">Mobile Number:</label>
-              <input type="number" id="form1Example13" placeholder="Please enter your mobile No" class="form-control form-control-lg" v-model="username" />
-            </div>
-            <div class="form-outline mb-4">
-              <label class="form-label" for="form1Example23">Password:</label>
-              <input type="password" id="form1Example23" class="form-control form-control-lg" v-model="password" placeholder="Please enter your password" />
-            </div>
-            <div class="d-flex justify-content-around align-items-center mb-4">
-              <div class="form-check">
-                <input class="form-check-input success" type="checkbox" id="form1Example3" checked />
-                <label class="form-check-label" for="form1Example3">Remember me</label>
-              </div>
-            </div>
-            <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-              <button type="submit" class="btn btn-success btn-lg" @click.prevent="submitForm">Sign in</button>
-            </div>
-            <div class="divider d-flex align-items-center my-4">
-              <p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
-            </div>
-            <div class="d-flex justify-content-around align-items-center mb-4 success">
-              <router-link class="nav-link" to="/signup">Create account</router-link>
-              <router-link class="nav-link" to="/contact">Forgot password?</router-link>
-            </div>
-          </form>
-        </div>
-      </div>
+  <!-- axios JS -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Vue, Vue Router, Vuex, and Google Sign-In -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue-router@3/dist/vue-router.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+<!-- Login page -->
+<script type="text/x-template" id="profilet">
+<div>
+  <div id="card2" v-if="!$store.state.isauth">
+    <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726134913/R_prev_ui_bectvx.png" alt="Login" id="card2-img" v-if="!$store.state.islog" />
+    <img :src="$store.state.G_img" alt="User Image" v-if="$store.state.islog" id="card2-img"/>
+    
+    <div id="card-content" v-if="!otpSent">
+      <h3>Name:{{ $store.state.G_name }}</h3>
+<h3>email:{{ $store.state.G_email }}</h3>
+<h3>long-lattude:{{ $store.state.G_email }}</h3>
+<h3 v-if="$store.state.isauth">number:{{ $store.state.A_num }}</h3>
+      <input type="tel" v-model="mobile" placeholder="Enter mobile number" id="input-field" maxlength="10" />
+      <button @click="sendOTP" id="send-btn" :disabled="mobile.length !== 10" >
+        Send OTP
+      </button>
     </div>
-  </section>
-  <div class="text-center bg-success" v-if="isloading">
-    <div class="spinner-border" role="status">
-      <span class="sr-only">Loading...</span>
+
+    <div id="card-content" v-if="otpSent">
+      <h3>Name:{{ $store.state.G_name }}</h3>
+<h3>email:{{ $store.state.G_email }}</h3>
+<h3>long-lattude:{{ $store.state.G_email }}</h3>    
+      <p >Your OTP : {{otp}}</p> 
+      <p >Please enter the OTP</p>        
+      <input type="text" v-model="otp2" placeholder="Enter OTP" id="input-field" maxlength="6"/>
+      <button @click="verifyOTP" id="verify-btn" >
+        Verify OTP
+      </button>      
+    </div>       
+  </div>
+  
+<div id="card2" v-if="$store.state.isauth">   
+    <img :src="$store.state.G_img" alt="User Image"id="card2-img"/>    
+    <div id="card-content">
+      <h3>Name:{{ $store.state.G_name }}</h3>
+<h3>email:{{ $store.state.G_email }}</h3>
+<h3>long-lattude:{{ $store.state.G_email }}</h3>
+<h3>number:{{ $store.state.A_num }}</h3>   
+<h3>email:{{ $store.state.G_email }}</h3>
+<h3>long-lattude:{{ $store.state.G_email }}</h3>
+<h3>number:{{ $store.state.A_num }}</h3>    
+    </div>
+        
+        <div id="card2" v-else>   
+    <img :src="$store.state.G_img" alt="User Image"id="card2-img"/>    
+    <div id="card-content">
+      <h3>Name:{{ $store.state.G_name }}</h3>
+<h3>email:{{ $store.state.G_email }}</h3>
+<h3>long-lattude:{{ $store.state.G_email }}</h3>
+<h3>number:{{ $store.state.A_num }}</h3>   
+<h3>email:{{ $store.state.G_email }}</h3>
+<h3>long-lattude:{{ $store.state.G_email }}</h3>
+<h3>number:{{ $store.state.A_num }}</h3>    
     </div>
   </div>
-</template>
 
-<script id="login">
-  const LoginC = {
-    template: "#login-template",
-    data() {
-      return {
-        username: "",
-        password: "",
-        errorMessage: "",
-        masterPwd: '10key01',
-        isloading: false,
-        loginform: true,
+</div>
+  
+</script>
+<script>
+const Profilec = {
+  template: '#profilet',
+  data() {
+    return {
+      mobile: '',
+      otp2: '',
+      otp: '',
+      otpSent: false,
+      
+     
+    };
+  },
+  methods: {
+    
+    resetUser() {
+      this.userInfo = {
+        id: '',
+        name: '',
+        img: '',
+        email: ''
       };
     },
-    methods: {
-      submitForm() {
-        this.isloading = true;
-        this.loginform = false;
-        const hashedPassword = CryptoJS.SHA256(this.password).toString();
-        const combinedPassword = this.masterPwd + hashedPassword;
-        const url = this.$store.state.url2 + 'user';
-        const token = this.$store.state.isR_token;
-        axios.get(url, {
-          headers: { Authorization: `Bearer ${token}` }
-        })
-        .then(response => {
-          const match = response.data.records.find(record => {
-            return record.fields.usermobile === this.username && record.fields.usermasterpwd === combinedPassword;
-          });
-          if (match) {
-            this.$store.state.islog = match;
-            this.$router.push("/");
-          } else if (this.username === '' || this.password === '') {
-            this.errorMessage = "Please fill all fields";
-            this.loginform = true;
-          } else {
-            this.loginform = true;
-            this.errorMessage = "Invalid username or password";
-            alert("Wrong credentials");
-          }
-        })
-        .catch(error => {
-          this.errorMessage = "An error occurred. Please try again later.";
-        })
-        .finally(() => {
-          this.isloading = false;
-        });
+    sendOTP() {
+      if (this.mobile.length === 10 && /^\d+$/.test(this.mobile)) {
+        this.otp = Math.floor(100000 + Math.random() * 900000).toString(); // Simulated OTP
+        this.otpSent = true;
+        // Simulate OTP sent (No need to show OTP)
+      } else {
+        alert("Please enter a valid 10-digit mobile number.");
       }
-    }
-  };
-</script>
-   <script>
-  const store = new Vuex.Store({
-    state: {    
-planuserid:'',
-planusermobile:'',
-planusername:'',
-planUTR:'',
-planuserplan:'',
-planEday:'',
-planstartdate:'',
-planexpirydate:'',
-setupUTR:'',
-setupuserBid:'',
-setupuserNid:'',
-setupuserpAT:'',
-setupuserTAT:'',
-planfinderusermobile:'',
-planfinderutr:'',
-planfinderUtrNo:'',
-islog:'',
-isplan:'',
-isact:'',
-isHistories:'',
-isinput:'916301656096',
-      isR_token:'pat2r1WnKUcw7rkbg.72be11cdde4f980ee6135ea2792faa311eac2e2c14abb5b43c528fd5ebb27764',
-      
-           isW_token:'patX200VGkvIdjhvl.a61788b965c5755ebbb06546d72ca1a6be303bcd947d7d27846d302a6c94bea5',
-      isT_token:'',
-      isP_token:'',     
-      url1:'https://api.airtable.com/v0/appUycLZwpqXOVZsQ/test',
-      url2:'https://api.airtable.com/v0/app2MO1zTW9QaTh9z/',
-      url3:'https://graph.facebook.com/v18.0/',
-      adress:"17-2-954/955 reinbazar",
-           },
-           
-           
-           mutations: {
-    logout(state) {
-      state.islog = '';
-      state.isplan='';
-      state.isact='';
-      state.isHistories='';
-      state.isinput='';
-      
-      
-      router.push("/login"); 
     },
-    logout2(state) {
-      
-      
-      router.push("/"); 
-    }
-  }    
-  });
+    verifyOTP() {
+      if (this.otpSent && this.otp2 === this.otp) {
+        alert('OTP verified successfully!');
+        this.$store.state.A_num=this.mobile;
+        this.$store.state.isauth=true;
+        
+    
+      } else {
+        alert("Invalid OTP");
+        this.resetLogin();
+      }
+    },
+    resetLogin() {
+      this.otp2 = '';
+      this.signedIn = false;
+      this.otpSent = false;
+    },
+      // Google Sign-In callback
+  
+
+    
+  }
+};
 </script>
-<template id="homeC" scoped>
+<style>
+  
+</style>
 
-<div>
+<!-- Login Component Template -->
+<script type="text/x-template" id="logintgoogle">
+  <div id="googlebtn">
+        <div id="g_id_onload"
+         data-client_id="329273265898-s22m326kd3flkr7kbaehskfpudfg7ori.apps.googleusercontent.com"
+         data-callback="onSignIn"
+         data-auto_prompt="false">
+    </div>
+    <div class="g_id_signin" 
+         data-size="large"
+         
+         data-shape="pills">
+    </div>
+  </div>
+</script>
 
-        <div class="d-flex dark justify-content-center my-3 ">
-      <i class="fas fa-location fa-2x" style="color:#66cc33;  margin-right: 10px; "></i>           
-      <h3 class="m-0">{{ address }}</h3>
+<!-- Logout Component Template -->
+<script type="text/x-template" id="logouttgoogle">
+  <div id="cardbtn2">
+    
+    <button class="btn btn-outline-warning w-100 mb-3" @click="signOut">Sign Out</button>
+  </div>
+</script>
+<script type="text/x-template" id="home">
+<div class="">
+
+    <div class="d-flex dark justify-content-center my-3">
+      <i class="fas fa-location fa-2x" style="color:#66cc33; margin-right: 10px;"></i>           
+      <h3 class="m-0">homepage</h3>
       
     </div>
     <hr>
-   <div class="d-flex search-bar my-4 align-items-center">
-  <input v-model="searchQuery" placeholder="Search for 'Atta'" class="form-control me-2" style="max-width: 400px;">
-  <i class="fas fa-search fa-2x" style="color:#66cc33; margin-left: 0px; cursor: pointer;" @click="search"></i>
-  <i class="fas fa-microphone fa-2x" style="color:#66cc33; margin-left: 10px; cursor: pointer;" @click="voiceSearch"></i>
+    <div class="d-flex search-bar my-4 align-items-center  ">
+      <input v-model="searchQuery" placeholder="Search for 'Atta'" class="form-control me-2" style="max-width: 400px;">
+      <i class="fas fa-search fa-2x" style="color:#66cc33; margin-left: 0px; cursor: pointer;" @click="search"></i>
+      <i class="fas fa-microphone fa-2x" style="color:#66cc33; margin-left: 10px; cursor: pointer;" @click="voiceSearch"></i>
+    </div>
+      
+    <!-- promotions merchant -->
+  <div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" >
+
+  <!-- Indicators/dots -->
+ 
+  
+ <div class="carousel-inner"> <div v-for="(ad, index) in adsdata" :key="ad.id" :class="['carousel-item', index === 0 ? 'active' : '']">
+      <img :src="ad.fields.imgurl" :alt="ad.fields.Merchantname" width="1100" height="500">
+      <div class="carousel-caption">
+        <h3>{{ ad.fields.Merchantname }}</h3>
+        <i class="fas fa-2x">
+          <p>{{ ad.fields.Offer }}</p>
+        </i>
+      </div>
+    </div>
+     <!-- Indicators/do -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
 </div>
 
-
-<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="300">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726146904/14344962-0-image-a-11_1559640070273_prev_ui_kk4fzt.png" class="d-block w-100" alt="Slide 1">
-    </div>
-    <div class="carousel-item">
-      <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726147604/res1.png" class="d-block w-100" alt="Slide 2">
-    </div>
-    <div class="carousel-item">
-      <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726147604/res1.png" class="d-block w-100" alt="Slide 3">
-    </div>
-  </div>
-</div>
-    
-   
-  <div class="container">
-  <div class="card box1" @click="goToFoodRoute">
-    <img
-      src="https://res.cloudinary.com/mandmshop/image/upload/v1726147604/res1.png"
-      alt="Food delivery"
-      class="card-img"
-    />
-    <div class="card-content">
-      <h2>FOOD</h2>
-      <p>FOOD YOU ❤️, ON TIME</p>
-      <p class="discount">UP TO 60% OFF</p>
-    </div>
-  </div>
-
-  <div class="card box2" @click="goToGrocery">
+  <!-- Martlist -->
+<br>
+    <div class="container">
+      <div class="card box1" @click="goToFoodRoute">
+        <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726147604/res1.png" alt="Food delivery" class="card-img"/>
+        <div class="card-content">
+          <h2>FOOD</h2>
+          <p>FOOD YOU ❤️, ON TIME</p>
+          <p class="discount">UP TO 60% OFF</p>
+        </div>
+      </div>
+      <div class="card box2" @click="goToGrocery">
     <img
       src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png"
       alt="Food delivery"
@@ -452,7 +731,7 @@ isinput:'916301656096',
     </div>
   </div>
 
-  <div class="card box4" click="goToVegies">
+  <div class="card box4" @click="goToVegies">
     <img
       src="https://res.cloudinary.com/mandmshop/image/upload/v1726134913/R_prev_ui_bectvx.png"
       alt="Food delivery"
@@ -464,35 +743,45 @@ isinput:'916301656096',
       <p class="discount">UP TO 60% OFF</p>
     </div>
   </div>
-</div>
-
-    </div>
+</div>      
+   
+      
     
-   
-   
- 
-</template>
-<style scoped>
-
-</style>
+    </div>
+     
+    </div>
+</script>
 <script>
-  const Grocery = { template: '<div>Grocery</div>' };
-  const Restaurant = { template: '<div>Restaurant</div>' };
-  const Vegetable = { template: '<div>Vegetable</div>' };
-  const FreshMeat = { template: '<div>Fresh Meat</div>' };
-  const Profile = { template: '<div>Profile</div>' };
-  const Home = {
-  template:'#homeC',
-  data() {
+const Homec = {
+    template: '#home',data() {
     return {
-      address: ""
+      address: "",
+      searchQuery:"",
+      adsdata:[],
     };
   },
-  
-  mounted() {
-    this.address = this.$store.state.adress; // Access store state and assign to local data
+  mounted() { 
+  const url = this.$store.state.Adsurl; 
+  const config = { headers: 
+  { Authorization: `Bearer ${this.$store.state.token}`
+   } }; 
+  axios.get(url, config)
+  .then(response => { this.adsdata = response.data.records; })
+  .catch(error => { console.error('Error fetching ads data:', error); }); 
+  const myCarouselElement = document.querySelector('#demo')
+const carousel = new bootstrap.Carousel(myCarouselElement, {
+  interval: 200,
+  touch: false
+});
+   
   },
   methods: {
+      search(){
+        alert(this.searchQuery);
+    },
+    voiceSearch(){
+        alert(this.searchQuery);
+    },
     goToFoodRoute() {
       this.$router.push("/Restaurant");
       
@@ -507,48 +796,173 @@ isinput:'916301656096',
     },
     goTomeats() {
      this.$router.push("/fresh-meat");
-      //alert("hi");
+      //alert("hi");{}
       
     },
-  },
-  
-};
+        
+    }};
+  const Logincomp = {
+    template: '#logintgoogle',
+    mounted() {
+      // Initialize Google Sign-In button
+      google.accounts.id.initialize({
+        client_id: '329273265898-s22m326kd3flkr7kbaehskfpudfg7ori.apps.googleusercontent.com',
+        callback: onSignIn
+      });
+      google.accounts.id.renderButton(
+        document.querySelector('.g_id_signin'),
+        { theme: "outline", size: "large" },
+        
+        
+      );
+     
+    }
+    
+  };
 
+  const Logoutcomp = {
+    template: '#logouttgoogle',
+    methods: {
+      signOut() {
+        google.accounts.id.disableAutoSelect();
+        this.$store.commit('logout');
 
+        // Reload Google Sign-In button after logout
+        setTimeout(() => {
+          const signInElement = document.getElementById('g_id_onload');
+          if (signInElement) {
+            signInElement.remove();  // Remove old button
 
+            // Recreate button
+            const newSignInElement = document.createElement('div');
+            newSignInElement.id = 'g_id_onload';
+            newSignInElement.setAttribute('data-client_id', '329273265898-s22m326kd3flkr7kbaehskfpudfg7ori.apps.googleusercontent.com');
+            newSignInElement.setAttribute('data-callback', 'onSignIn');
+            newSignInElement.setAttribute('data-auto_prompt', 'false');
+            document.body.appendChild(newSignInElement);
 
+            // Reinitialize Google Sign-In button
+            google.accounts.id.initialize({
+              client_id: '329273265898-s22m326kd3flkr7kbaehskfpudfg7ori.apps.googleusercontent.com',
+              callback: onSignIn
+            });
+            google.accounts.id.renderButton(
+              document.querySelector('.g_id_signin'),
+              { theme: "outline", size: "large" }
+            );
+          }
+        }, 100); // Delay for smooth re-rendering
+      }
+    }
+  };
+
+  // Google Sign-In callback
+  function onSignIn(response) {
+    const profile = jwt_decode(response.credential);
+    const app = document.getElementById("app").__vue__; // Access Vue instance
+
+    // Save Google user data in Vuex store
+    app.$store.commit('saveGoogleUser', {
+      G_id: profile.sub,
+      G_name: profile.name,
+      G_img: profile.picture,
+      G_email: profile.email,
+    });
+    
+  }
+
+  // Helper to decode the ID token (JWT)
+  function jwt_decode(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+  }
+
+  const store = new Vuex.Store({
+    state: {
+       isauth:false,
+      islog: false,
+      G_id: '',
+      G_name: '',
+      G_img: '',
+      G_email: '',
+      A_num:'',
+      loading: false,
+        Adsurl: 'https://api.airtable.com/v0/appUycLZwpqXOVZsQ/Ads',
+        
+        token: 'patX200VGkvIdjhvl.85e8e525a33b49ef814bfbfc0c0af14631faf88b39fd566a99a5c3de203a181a'
+    },
+    mutations: {
+      saveGoogleUser(state, payload) {
+        state.islog = true;
+        state.G_id = payload.G_id;
+        state.G_name = payload.G_name;
+        state.G_img = payload.G_img;
+        state.G_email = payload.G_email;
+         
+        
+      },
+      logout(state) {
+        state.islog = false;
+        state.G_id = '';
+        state.G_name = '';
+        state.G_img = '';
+        state.G_email = '';
+      },
+    },
+    actions: {
+  saveGoogleUserAndRedirect({ commit, state }, payload) {
+    commit('saveGoogleUser', payload);
+    
+    if (state.islog) {
+      this.$router.push("/");  // Use router to navigate
+    } else {
+      this.$router.push("/profile");
+    }
+  }
+}
+
+  });
+
+  // Define your routes
   const routes = [
-    { path: '/', component: Home }, 
-    { path: '/grocery', component: Grocery },
-    { path: '/restaurant', component: Restaurant },
-    { path: '/vegetable', component: Vegetable },
-    { path: '/fresh-meat', component: FreshMeat },
-    { path: '/profile', component: Profile }
+    { path: '/', component:Homec, },
+    { path: '/about', component: { template: '<div>About Page</div>' }},
+    { path: '/contact', component: { template: '<div>Contact Page</div>' }},
+    {path :'/profile', component: Profilec},
   ];
 
   const router = new VueRouter({
     routes
   });
 
- 
-  // Create Vue app
   const app = new Vue({
     el: '#app',
+    store,
+    router,
+    components: {
+      'login-component': Logincomp,
+      'logout-component': Logoutcomp,
+    
+    },
     data() {
       return {
-        showSplash: true
+        isNavbarVisible: false,
       };
     },
-    mounted() {
-        
-      setTimeout(() => {
-        this.showSplash = false;
-      }, 2000);
-    },
-    router,store
+    methods: {
+      toggleNavbar() {
+        this.isNavbarVisible = !this.isNavbarVisible;
+      },
+      gotoProfile(){
+          this.$store.route.push("/profile");
+      }
+    }
   });
 </script>
 
 </body>
 </html>
-

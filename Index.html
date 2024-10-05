@@ -14,6 +14,42 @@
   <!-- External Libraries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
 <style>
+
+    
+.container2 {
+  
+  width: 100%;
+  height: 460px;  
+}
+ .custom-header {
+            background-color: #fff;
+            color: #66cc33;
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            margin-top:20px;
+        }
+        .custom-footer {
+            background-color: #fff;
+            color: #66cc33;
+            text-align: center;
+            padding: 20px;
+            font-weight: bold;
+            margin-top:-125px;
+        }
+        /* Custom styles for card */
+        #card {
+            width: 100%;
+            max-width: 500px;
+            margin-top:-10px;
+            text-align: center;
+        }
+        #card img {
+            margin-top:-100px;
+            width: 100%;
+            height: auto;
+        }
+
 /* Fullscreen overlay */
     .overlay {
       height: 100%;
@@ -198,19 +234,77 @@
 }
  /*end*/
  /* Styling with ID */
-  #card2 {
-    width: 50%;
-    height: 520px;
-    padding: 40px;
+ 
+/* profile card */
+
+.icon-spacing {
+    margin-right: 8px; /* Space between icon and text */
+}
+
+.heading-spacing {
+    margin-bottom: 20px; /* Space between headings */
+}
+
+#ph1{
+    text-align: left;
+    padding-top: 50px;
+}
+
+.card-img-top{
+    left:0%l
+      display:flex;
+    
+    object-fit: cover;
+}
+#card2 {
+    width: 80%;
+    height: 840px;
+    padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    margin: 240px auto;
-    background-color: #fff;
+    text-align: 0;
+    margin: 40px auto;
+    background-color: #c2fa7d;
     position: relative;
     overflow: hidden;
+    
+    
+    
   }
+  /*profile */
 
+#card2,input,#ph1{
+    --border-size: 4px;
+    --border-angle: 0turn;
+
+    background-image: conic-gradient(from var(--border-angle), #ffffff, #FFFFFF), conic-gradient(from var(--border-angle), white 20%, #66cc33, #f03);
+
+    background-size: calc(100% - (var(--border-size) * 2)) calc(100% - (var(--border-size) * 2)), cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    -webkit-animation: bg-spin 3s linear infinite;
+    animation: bg-spin 3s linear infinite;
+}
+
+@-webkit-keyframes bg-spin {
+    to {
+        --border-angle: 2turn;
+    }
+}
+
+@keyframes bg-spin {
+    to {
+        --border-angle: 1turn;
+    }
+}
+
+
+
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+}
   #card2-img {
     width: 80px;
     height: 80px;
@@ -234,7 +328,10 @@
   }
 
   #card-content {
-    padding-top: 70px;
+    padding-top: 20px;
+  }
+#card-content2 {
+    padding-top: 10px;
   }
 
   #send-btn, #verify-btn {
@@ -262,6 +359,9 @@
     background-color: #e64a19;
   }
 
+
+
+ 
   /* Adding a Google Sign-In button style */
   .g_id_signin {
     width: 205px;
@@ -358,7 +458,7 @@
   height: auto;
   border-radius: 10px;
 }
-.card-content {
+#homeL .card-content {
   text-align: center;
 }
 .discount {
@@ -409,6 +509,13 @@
 <body>
 
 <div id="app">
+  <!-- Splash screen -->
+  <div v-if="showSplash" class="overlay">
+    <div class="overlay-content">
+      <img class="bouncing" src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png" alt="Logo">
+      <h3>Alif Food & Grocery Mart</h3>
+    </div>
+  </div>
   <!-- Slide screen -->
 <nav class="navbar fixed-top navbar-light my-2 m-1"> 
  <div class="container-fluid justify-content-between"> <div></div> 
@@ -513,9 +620,11 @@
   <script src="https://cdn.jsdelivr.net/npm/vuex@3.6.2/dist/vuex.min.js"></script>
   <script src="https://accounts.google.com/gsi/client" async defer></script>
 <!-- Login page -->
+
 <script type="text/x-template" id="profilet">
 <div>
   <div id="card2" v-if="!$store.state.isauth">
+  <img class="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap">
     <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726134913/R_prev_ui_bectvx.png" alt="Login" id="card2-img" v-if="!$store.state.islog" />
     <img :src="$store.state.G_img" alt="User Image" v-if="$store.state.islog" id="card2-img"/>
     
@@ -523,80 +632,212 @@
       <h3>Name:{{ $store.state.G_name }}</h3>
 <h3>email:{{ $store.state.G_email }}</h3>
 <h3>long-lattude:{{ $store.state.G_email }}</h3>
-<h3 v-if="$store.state.isauth">number:{{ $store.state.A_num }}</h3>
-      <input type="tel" v-model="mobile" placeholder="Enter mobile number" id="input-field" maxlength="10" />
-      <button @click="sendOTP" id="send-btn" :disabled="mobile.length !== 10" >
+
+
+     <div class="m4">
+  <div style="display: flex; align-items: center; margin-bottom: 15px;">
+    <i class="fas fa-phone" style="color: #66cc33; margin-right: 10px;"></i>
+    <input type="tel" v-model="$store.state.G_num" placeholder="Enter mobile number" id="input-field" maxlength="10" />
+  </div>
+</div>
+
+<div class="m4">
+  <div style="display: flex; align-items: center;">
+    <i class="fas fa-map" style="color: #66cc33; margin-right: 10px;"></i>
+    <input type="textarea" v-model="$store.state.Gadress" placeholder="Enter Your full address" id="input-field" minlength="50" />
+  </div>
+</div>
+
+      <button @click="sendOTP" id="send-btn" :disabled="$store.state.G_num.length !== 10" >
         Send OTP
       </button>
     </div>
 
-    <div id="card-content" v-if="otpSent">
-      <h3>Name:{{ $store.state.G_name }}</h3>
+    <div id="card-content2" v-if="otpSent">
+    
+<h3>Name:{{ $store.state.G_name }}</h3>
 <h3>email:{{ $store.state.G_email }}</h3>
-<h3>long-lattude:{{ $store.state.G_email }}</h3>    
+<h3>Adress:{{ $store.state.G_email }}</h3>
+<h3>number:{{ $store.state.G_num }}</h3>      
       <p >Your OTP : {{otp}}</p> 
-      <p >Please enter the OTP</p>        
-      <input type="text" v-model="otp2" placeholder="Enter OTP" id="input-field" maxlength="6"/>
-      <button @click="verifyOTP" id="verify-btn" >
+      <p >Please enter the OTP</p>    
+       
+      <div class="m4">
+  <div style="display: flex; align-items: center; ">
+    <i class="fas fa-lock" style="color:#FF5722"></i><input type="text" v-model="otp2" placeholder="Enter OTP" id="input-field" maxlength="6"/>
+  </div>
+</div>
+       
+      <button @click="verifyOTP" id="verify-btn"  v-if="!update" >
         Verify OTP
       </button>      
+      <button 
+    @click="updated"
+    id="send-btn"
+      v-if="update" 
+    class="m-t-10 waves-effect waves-dark btn  btn-rounded" 
+    data-abc="true" 
+    style="background-color: #66cc33; color: white; border: none;">
+    <i class="fas fa-up-arrow"></i>
+    update
+</button>
     </div>       
   </div>
   
-<div id="card2" v-if="$store.state.isauth">   
-    <img :src="$store.state.G_img" alt="User Image"id="card2-img"/>    
-    <div id="card-content">
-      <h3>Name:{{ $store.state.G_name }}</h3>
-<h3>email:{{ $store.state.G_email }}</h3>
-<h3>long-lattude:{{ $store.state.G_email }}</h3>
-<h3>number:{{ $store.state.A_num }}</h3>   
-<h3>email:{{ $store.state.G_email }}</h3>
-<h3>long-lattude:{{ $store.state.G_email }}</h3>
-<h3>number:{{ $store.state.A_num }}</h3>    
-    </div>
-        
-        <div id="card2" v-else>   
-    <img :src="$store.state.G_img" alt="User Image"id="card2-img"/>    
-    <div id="card-content">
-      <h3>Name:{{ $store.state.G_name }}</h3>
-<h3>email:{{ $store.state.G_email }}</h3>
-<h3>long-lattude:{{ $store.state.G_email }}</h3>
-<h3>number:{{ $store.state.A_num }}</h3>   
-<h3>email:{{ $store.state.G_email }}</h3>
-<h3>long-lattude:{{ $store.state.G_email }}</h3>
-<h3>number:{{ $store.state.A_num }}</h3>    
-    </div>
-  </div>
+<div class="padding" v-if="$store.state.isauth" id="card2">
+    <div class="col-md-8">
+        <!-- Column -->
+        <div >
+         <img class="card-img-top" src="https://i.imgur.com/K7A78We.jpg" alt="Card image cap">
+            <div class="card-body little-profile text-center">
+                <div class="pro-img">
+            <img :src="$store.state.G_img" alt="User Image"id="card2-img"/>
+               </div>
+               
+               
+               <div id="ph1" >
+<h3 class="heading-spacing"><i class="fas fa-id-badge icon-spacing" style="color: #66cc33;"></i> {{ $store.state.G_id }}</h3>
+<h3 class="heading-spacing"><i class="fas fa-calendar icon-spacing" style="color: #66cc33;"></i> {{data.fields.GDate }}</h3>
+<h3 class="heading-spacing"><i class="fas fa-user icon-spacing" style="color: #66cc33;"></i> {{ $store.state.G_name }}</h3>
+<h3 class="heading-spacing"><i class="fas fa-envelope icon-spacing" style="color: #66cc33;"></i> {{ $store.state.G_email }}</h3>
+<h3 class="heading-spacing"><i class="fas fa-map-marker-alt icon-spacing" style="color: #66cc33;"></i> {{ data.fields.Gadress }}</h3>
+<h3 class="heading-spacing"><i class="fas fa-phone icon-spacing" style="color: #66cc33;"></i> {{ data.fields.Gnumber }}</h3>
 
+             </div>
+             
+             <button
+    @click="editF"
+    v-if="!update" 
+    class="m-t-10 waves-effect waves-dark btn  btn-rounded" 
+    data-abc="true" 
+    style="background-color: #66cc33; color: white; border: none;">
+    <i class="fas fa-edit"></i>
+    Edit
+</button>
+
+      
+            </div>
+        </div>
+    </div>
 </div>
-  
 </script>
+
 <script>
 const Profilec = {
   template: '#profilet',
   data() {
     return {
-      mobile: '',
-      otp2: '',
       otp: '',
+      otp2: '',
       otpSent: false,
+      data:[],
+      edit:'',
+      update:false,
       
-     
     };
   },
-  methods: {
-    
-    resetUser() {
-      this.userInfo = {
-        id: '',
-        name: '',
-        img: '',
-        email: ''
-      };
+  mounted() {
+  const url = this.$store.state.url + "Consumer";
+  const config = {
+    headers: {
+      Authorization: `Bearer ${this.$store.state.token}`,
     },
+  };
+  const log = this.$store.state.islog;
+
+  // Check if the user is logged in
+  if (log) {
+    const check = this.$store.state.G_email;
+
+    // Fetch user data
+    axios.get(url, config)
+      .then(response => {
+        const records = response.data.records;
+
+        if (records && Array.isArray(records)) {
+          // Find the matching record by email
+          const match = records.find(record => record.fields.Gemail === check);
+
+          // Check if the email matches
+          if (match) {
+              this.data=match;
+            this.$store.state.isauth=true;
+            this.edit=match.id;
+                                  
+                              
+            alert("Success login");
+          } else {
+            alert("No matching email found");
+          }
+        } else {
+          alert("No records found");
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching user data:", error);
+        alert("Error occurred while fetching data");
+      });
+      
+      
+  }
+},
+
+
+  methods: {
+      updated() {
+  const url = this.$store.state.url + "Consumer/";
+  const config = {
+    headers: {
+      Authorization: `Bearer ${this.$store.state.token}`,
+    },
+  };
+  const data1 = {
+    records: [
+      {
+        id: this.edit,
+        fields: {
+          Gid: this.$store.state.G_id,
+          Gname: this.$store.state.G_name,
+          Gemail: this.$store.state.G_email,
+          Gimg: this.$store.state.G_img,
+          Gnumber: this.$store.state.G_num,
+          Gadress: this.$store.state.Gadress,
+        },
+      },
+    ],
+  };
+if (this.otpSent) {
+  axios.put(url, data1, config)
+    .then(response => {
+        alert("updated");
+      this.$store.state.isauth = true;
+      
+      
+    })
+    
+    .catch((error) => {
+      console.error('Error updating:', error);
+      // You might want to display an error message to the user
+    });
+    this.$router.push("/");
+      this.$store.state.Gnum =data.fields.Gnumber;
+      this.$store.state.Gadress=data.fields.Gadress;
+}else {
+        alert("Invalid OTP");
+        this.resetLogin();
+      }
+
+},
+
+
+    editF() {
+  this.update=true;
+  this.$store.state.isauth=false;
+  
+},
     sendOTP() {
-      if (this.mobile.length === 10 && /^\d+$/.test(this.mobile)) {
-        this.otp = Math.floor(100000 + Math.random() * 900000).toString(); // Simulated OTP
+      if (this.$store.state.G_num.length === 10 && /^\d+$/.test(this.$store.state.G_num)) {
+        this.otp = Math.floor(100000 + Math.random() * 900000).toString(); // Simulate OTP
         this.otpSent = true;
         // Simulate OTP sent (No need to show OTP)
       } else {
@@ -604,12 +845,48 @@ const Profilec = {
       }
     },
     verifyOTP() {
+        const url = this.$store.state.url + "Consumer";
+const config = {
+  headers: {
+    Authorization: `Bearer ${this.$store.state.token}`,
+    'Content-Type': 'application/json', // Corrected
+  },
+};
+
+  const data2 = {
+            records: [
+              {
+                fields: {
+                  Gid: this.$store.state.G_id,
+                  Gname: this.$store.state.G_name,
+                  Gemail: this.$store.state.G_email,
+                  Gimg: this.$store.state.G_img,
+                  Gnumber: this.$store.state.G_num,
+                  Gadress: this.$store.state.Gadress,
+                  
+                 
+                },
+              },
+            ],
+          };
+
       if (this.otpSent && this.otp2 === this.otp) {
-        alert('OTP verified successfully!');
-        this.$store.state.A_num=this.mobile;
-        this.$store.state.isauth=true;
-        
+        //alert("Thank");
+        axios.post(url, data2, config)
+  .then(response => {
+    this.$store.state.isauth=true;
+    this.$store.state.Gdate=new Date().toISOString();
+    this.$router.push("/profile");
     
+  })
+  .catch(error => {
+    console.error("Error:", error.response.data); // Log error details to see what's wrong
+    alert("There was an issue processing your request. Please check the data.");
+  });
+
+   
+  
+        
       } else {
         alert("Invalid OTP");
         this.resetLogin();
@@ -617,16 +894,12 @@ const Profilec = {
     },
     resetLogin() {
       this.otp2 = '';
-      this.signedIn = false;
       this.otpSent = false;
     },
-      // Google Sign-In callback
-  
-
-    
-  }
+  },
 };
 </script>
+
 <style>
   
 </style>
@@ -657,9 +930,9 @@ const Profilec = {
 <script type="text/x-template" id="home">
 <div class="">
 
-    <div class="d-flex dark justify-content-center my-3">
-      <i class="fas fa-location fa-2x" style="color:#66cc33; margin-right: 10px;"></i>           
-      <h3 class="m-0">homepage</h3>
+    <div class="d-flex dark justify-content-center my-3" @click="getLocation">
+      <i class="fas fa-location-dot fa-2x" style="color:#66cc33; margin-right: 10px;"></i>           
+      <h3 class="m-0">{{getlocation}}</h3>
       
     </div>
     <hr>
@@ -695,7 +968,7 @@ const Profilec = {
 
   <!-- Martlist -->
 <br>
-    <div class="container">
+    <div class="container" id="homeL">
       <div class="card box1" @click="goToFoodRoute">
         <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726147604/res1.png" alt="Food delivery" class="card-img"/>
         <div class="card-content">
@@ -748,8 +1021,28 @@ const Profilec = {
       
     
     </div>
-     
+    
+     <div>
+<div class="container2"></div>
+<header class="custom-header">
+        Refer & Earn Rewards
+    </header>    
+         <div id="card" class="car h-100">
+            <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726198610/Refer.png" class="card-img-top" alt="Refer Friends">
+            <div class="card-body">
+                <h5 class="card-title">Refer Friends</h5>
+                <p class="card-text">Earn Cashpoints & reward more gifts by referring friends.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="custom-footer">
+            Every order earns cashback points & rewards with gift coupons.
+        </footer>
     </div>
+</div>
+    </div>
+    
 </script>
 <script>
 const Homec = {
@@ -758,9 +1051,20 @@ const Homec = {
       address: "",
       searchQuery:"",
       adsdata:[],
+      getlocation:"hyderabad",
     };
   },
   mounted() { 
+  if(this.getlocation.length===21){
+      
+      setInterval(this.getLocation, 1000);
+      
+      alert("not fetch your location please allow & open gps");
+      
+      }else{ 
+      this.getLocation();
+ };
+  
   const url = this.$store.state.Adsurl; 
   const config = { headers: 
   { Authorization: `Bearer ${this.$store.state.token}`
@@ -776,6 +1080,20 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
    
   },
   methods: {
+      getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.showPosition);
+      } else {
+        alert("Geolocation is not supported by this browser.");
+      }
+    },
+    showPosition(position) {
+      this.lat = position.coords.latitude;
+      this.long = position.coords.longitude;
+      this.getlocation=this.lat+","+this.long;
+      
+      
+    },
       search(){
         alert(this.searchQuery);
     },
@@ -860,6 +1178,7 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
   function onSignIn(response) {
     const profile = jwt_decode(response.credential);
     const app = document.getElementById("app").__vue__; // Access Vue instance
+    
 
     // Save Google user data in Vuex store
     app.$store.commit('saveGoogleUser', {
@@ -868,6 +1187,7 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
       G_img: profile.picture,
       G_email: profile.email,
     });
+    
     
   }
 
@@ -889,23 +1209,28 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
       G_name: '',
       G_img: '',
       G_email: '',
-      A_num:'',
+      Gadress:'',
+      G_num:'',
+      Gdate:'',
       loading: false,
         Adsurl: 'https://api.airtable.com/v0/appUycLZwpqXOVZsQ/Ads',
+        url: 'https://api.airtable.com/v0/appUycLZwpqXOVZsQ/',
         
         token: 'patX200VGkvIdjhvl.85e8e525a33b49ef814bfbfc0c0af14631faf88b39fd566a99a5c3de203a181a'
     },
     mutations: {
-      saveGoogleUser(state, payload) {
-        state.islog = true;
-        state.G_id = payload.G_id;
-        state.G_name = payload.G_name;
-        state.G_img = payload.G_img;
-        state.G_email = payload.G_email;
-         
-        
-      },
-      logout(state) {
+  // Mutation to save Google user data after login
+  saveGoogleUser(state, payload) {
+    state.islog = true;  // Set user as logged in
+    state.G_id = payload.G_id;  // Google user ID
+    state.G_name = payload.G_name;  // Google user name
+    state.G_img = payload.G_img;  // Google user profile image
+    state.G_email = payload.G_email;  // Google user email
+    
+  },
+  
+  
+  logout(state) {
         state.islog = false;
         state.G_id = '';
         state.G_name = '';
@@ -917,11 +1242,7 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
   saveGoogleUserAndRedirect({ commit, state }, payload) {
     commit('saveGoogleUser', payload);
     
-    if (state.islog) {
-      this.$router.push("/");  // Use router to navigate
-    } else {
-      this.$router.push("/profile");
-    }
+ 
   }
 }
 
@@ -936,6 +1257,7 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
   ];
 
   const router = new VueRouter({
+      mode: 'history',
     routes
   });
 
@@ -946,14 +1268,22 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
     components: {
       'login-component': Logincomp,
       'logout-component': Logoutcomp,
+      
     
     },
     data() {
       return {
         isNavbarVisible: false,
+        showSplash: true,
       };
     },
+    mounted () {
+        setTimeout(() => {
+        this.showSplash = false;
+      }, 2000);
+    },
     methods: {
+        
       toggleNavbar() {
         this.isNavbarVisible = !this.isNavbarVisible;
       },

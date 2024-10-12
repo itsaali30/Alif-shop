@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="google-signin-client_id" content="329273265898-s22m326kd3flkr7kbaehskfpudfg7ori.apps.googleusercontent.com" />
-  <meta name="google-site-verification" content="3Ggwzofsvgubze6iZJPYYd4X63qv_Y0Hj0E5hqWqZEM" />
+  
   <title>Alif Food Grocery Co Pvt Ltd</title>
 
   <!-- Bootstrap 5.3 -->
@@ -428,7 +428,7 @@
       margin-top:0;
     }
 /* MARTLIST STYLE*/
-.container {
+ .container {
     margin-top:20px;
   position: absolute;
   width: 60vw;
@@ -439,7 +439,7 @@
   
 }
 
-.card {
+ .cards {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -454,7 +454,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.card-img {
+#homeL .card-img {
   width: 100%;
   height: auto;
   border-radius: 10px;
@@ -504,8 +504,7 @@
 }
 
 </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2565212622944555"
-     crossorigin="anonymous"></script>
+  
 </head>
 
 <body>
@@ -971,7 +970,7 @@ const config = {
   <!-- Martlist -->
 <br>
     <div class="container" id="homeL">
-      <div class="card box1" @click="goToFoodRoute">
+      <div class="cards box1" @click="goToFoodRoute">
         <img src="https://res.cloudinary.com/mandmshop/image/upload/v1726147604/res1.png" alt="Food delivery" class="card-img"/>
         <div class="card-content">
           <h2>FOOD</h2>
@@ -979,7 +978,7 @@ const config = {
           <p class="discount">UP TO 60% OFF</p>
         </div>
       </div>
-      <div class="card box2" @click="goToGrocery">
+      <div class="cards box2" @click="goToGrocery">
     <img
       src="https://res.cloudinary.com/mandmshop/image/upload/v1726044537/logo1.png"
       alt="Food delivery"
@@ -992,7 +991,7 @@ const config = {
     </div>
   </div>
 
-  <div class="card box3" @click="goTomeats()"> 
+  <div class="cards box3" @click="goTomeats()"> 
 
     <img
       src="https://res.cloudinary.com/mandmshop/image/upload/v1726146904/14344962-0-image-a-11_1559640070273_prev_ui_kk4fzt.png"
@@ -1006,7 +1005,7 @@ const config = {
     </div>
   </div>
 
-  <div class="card box4" @click="goToVegies">
+  <div class="cards box4" @click="goToVegies">
     <img
       src="https://res.cloudinary.com/mandmshop/image/upload/v1726134913/R_prev_ui_bectvx.png"
       alt="Food delivery"
@@ -1202,9 +1201,194 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
     }).join(''));
     return JSON.parse(jsonPayload);
   }
+  </script>
+  <!-- Templates -->
+  <script type="text/x-template" id="shop-card-template">
+    <div class="card mb-3 shadow-sm" id="itemR">
+      <div class="row g-0 h-100">
+        <div class="col-6">
+          <img :src="shop.shopimg" class="card-img-top" :alt="shop.shopname">
+        </div>
+        <div class="col-6">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <h5 class="card-title">{{ shop.shopname }}</h5>
+            <p class="card-text">{{ shop.shopaddress }}</p>
+            <div class="d-flex align-items-center mb-2">
+              <i class="fas fa-star text-success"></i>
+              <i class="fas fa-star text-success"></i>
+              <i class="fas fa-star text-success"></i>
+            </div>
+            <router-link :to="{ name: 'shop-details', params: { shopid: shop.shopid } }" class="btn btn-success btn-md">
+              View Menu
+            </router-link>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="search-box-template">
+    <input 
+      v-model="searchQuery" 
+      @input="onSearch" 
+      class="form-control mb-3" 
+      :placeholder="placeholder"
+    />
+  </script>
+
+  <script type="text/x-template" id="item-card-template">
+    <div class="card mb-3 shadow-sm" id="itemR">
+      <div class="row g-0 h-100">
+        <div class="col-4">
+          <img :src="item.itemimgurl" class="img-fluid h-100" :alt="item.itemname">
+        </div>
+        <div class="col-8">
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div>
+              <h5 class="card-title">{{ item.itemname }}</h5>
+              <p class="card-text">{{ item.itemdes }}</p>
+              <p class="card-text text-muted">₹{{ item.itemprice }}</p>
+              <p class="card-text"><strong>Unit:</strong> {{ item.itemunitofmeasure }}</p>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+              <i class="fas fa-star text-success"></i>
+              <i class="fas fa-star text-success"></i>
+              <i class="fas fa-star text-success"></i>
+            </div>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+                <button class="btn btn-outline-success btn-md" @click="decreaseQty">-</button>
+                <span class="mx-3">{{ quantity }}</span>
+                <button class="btn btn-outline-success btn-md" @click="increaseQty">+</button>
+              </div>
+              <button class="btn btn-success btn-md" @click="addToCart">
+                <i class="fas fa-cart-plus"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
+  <script type="text/x-template" id="cart-template">
+    <div class="container2">
+      <h2>Your Cart</h2>
+      <div v-if="cartItems.length === 0" class="alert alert-info">
+        Your cart is empty!
+      </div>
+      <div v-else>
+        <div v-for="cartItem in cartItems" :key="cartItem.item.itemid" class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ cartItem.item.itemname }}</h5>
+            <p class="card-text"><strong>Price:</strong> ₹{{ cartItem.item.itemprice }} per {{ cartItem.item.itemunitofmeasure }}</p>
+            <p class="card-text"><strong>Quantity:</strong> {{ cartItem.quantity }}</p>
+            <div class="mb-3">
+              <button class="btn btn-outline-success" @click="decreaseItemQty(cartItem)">-</button>
+              <span class="mx-2">{{ cartItem.quantity }}</span>
+              <button class="btn btn-outline-success" @click="increaseItemQty(cartItem)">+</button>
+            </div>
+            <button class="btn btn-danger" @click="removeItem(cartItem)">
+              <i class="fas fa-trash-alt"></i> Remove
+            </button>
+          </div>
+        </div>
+        <div class="text-right">
+          <h4>Total Price: ₹{{ totalPrice }}</h4>
+        </div>
+      </div>
+    </div>
+  </script>
+<script>
+ Vue.component('shop-card', {
+      props: ['shop'],
+      template: '#shop-card-template'
+    });
+
+    Vue.component('search-box', {
+      props: ['placeholder'],
+      template: '#search-box-template',
+      computed: {
+        searchQuery: {
+          get() {
+            return this.$store.state.searchQuery;
+          },
+          set(value) {
+            this.$store.commit('SET_SEARCH_QUERY', value);
+          }
+        }
+      },
+      methods: {
+        onSearch() {
+          this.$store.commit('SET_SEARCH_QUERY', this.$store.state.searchQuery);
+        }
+      }
+    });
+
+    Vue.component('item-card', {
+      props: ['item'],
+      data() {
+        return {
+          quantity: 1
+        };
+      },
+      template: '#item-card-template',
+      methods: {
+        increaseQty() {
+          this.quantity++;
+        },
+        decreaseQty() {
+          if (this.quantity > 1) {
+            this.quantity--;
+          }
+        },
+        addToCart() {
+          this.$store.commit('ADD_TO_CART', { item: this.item, quantity: this.quantity });
+          alert(`${this.item.itemname} added to cart!`);
+        }
+      }
+    });
+
+    const Cart = {
+      computed: {
+        cartItems() {
+          return this.$store.state.cart;
+        },
+        totalPrice() {
+          return this.cartItems.reduce((total, cartItem) => {
+            return total + (cartItem.item.itemprice * cartItem.quantity);
+          }, 0);
+        }
+      },
+      methods: {
+        increaseItemQty(cartItem) {
+          this.$store.commit('INCREASE_CART_ITEM_QTY', cartItem.item.itemid);
+        },
+        decreaseItemQty(cartItem) {
+          this.$store.commit('DECREASE_CART_ITEM_QTY', cartItem.item.itemid);
+        },
+        removeItem(cartItem) {
+          this.$store.commit('REMOVE_FROM_CART', cartItem.item.itemid);
+        }
+      },
+      template: '#cart-template'
+    };
+
 
   const store = new Vuex.Store({
     state: {
+        searchQuery: '',
+        shops: [
+          { shopid: "1", shopname: "The Spice House", shopimg: "https://example.com/shop1.jpg", shopaddress: "123 Flavor St, City" },
+          { shopid: "2", shopname: "Biryani King", shopimg: "https://example.com/shop2.jpg", shopaddress: "456 Aroma Ave, City" },
+          { shopid: "3", shopname: "Veg Delight", shopimg: "https://example.com/shop3.jpg", shopaddress: "789 Herb Blvd, City" }
+        ],
+        menuItems: [
+          { itemid: "1", shopid: "1", itemname: "Chicken Biryani", itemdes: "Aromatic basmati rice cooked with flavorful chicken and spices.", itemimgurl: "https://example.com/item1.jpg", itemprice: 250, itemunitofmeasure: "full" },
+          { itemid: "2", shopid: "2", itemname: "Paneer Butter Masala", itemdes: "Cottage cheese cubes in a creamy tomato sauce.", itemimgurl:          "https://example.com/item2.jpg", itemprice: 180, itemunitofmeasure: "half" },
+          { itemid: "3", shopid: "2", itemname: "Paneer Tikka Masala", itemdes: "Cottage cheese cubes marinated in spices and grilled.", itemimgurl: "https://example.com/item3.jpg", itemprice: 380, itemunitofmeasure: "full" }
+        ],
+        cart: [],                     
        isauth:false,
       islog: false,
       G_id: '',
@@ -1220,6 +1404,22 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
         
         token: 'patX200VGkvIdjhvl.85e8e525a33b49ef814bfbfc0c0af14631faf88b39fd566a99a5c3de203a181a'
     },
+    getters: {
+        filteredShops(state) {
+          return state.shops.filter(shop =>
+            shop.shopname.toLowerCase().includes(state.searchQuery.toLowerCase())
+          );
+        },
+        filteredItems(state) {
+          let items = state.menuItems;
+          if (state.searchQuery) {
+            items = items.filter(item =>
+              item.itemname.toLowerCase().includes(state.searchQuery.toLowerCase())
+            );
+          }
+          return items;
+        }
+      },
     mutations: {
   // Mutation to save Google user data after login
   saveGoogleUser(state, payload) {
@@ -1239,7 +1439,34 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
         state.G_img = '';
         state.G_email = '';
       },
-    },
+   
+        SET_SEARCH_QUERY(state, query) {
+          state.searchQuery = query;
+        },
+        ADD_TO_CART(state, { item, quantity }) {
+          const cartItem = state.cart.find(cartItem => cartItem.item.itemid === item.itemid);
+          if (cartItem) {
+            cartItem.quantity += quantity;
+          } else {
+            state.cart.push({ item, quantity });
+          }
+        },
+        INCREASE_CART_ITEM_QTY(state, itemid) {
+          const cartItem = state.cart.find(cartItem => cartItem.item.itemid === itemid);
+          if (cartItem) {
+            cartItem.quantity++;
+          }
+        },
+        DECREASE_CART_ITEM_QTY(state, itemid) {
+          const cartItem = state.cart.find(cartItem => cartItem.item.itemid === itemid);
+          if (cartItem && cartItem.quantity > 1) {
+            cartItem.quantity--;
+          }
+        },
+        REMOVE_FROM_CART(state, itemid) {
+          state.cart = state.cart.filter(cartItem => cartItem.item.itemid !== itemid);
+        }
+      },
     actions: {
   saveGoogleUserAndRedirect({ commit, state }, payload) {
     commit('saveGoogleUser', payload);
@@ -1256,6 +1483,9 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
     { path: '/about', component: { template: '<div>About Page</div>' }},
     { path: '/contact', component: { template: '<div>Contact Page</div>' }},
     {path :'/profile', component: Profilec},
+     { path: '/restaurant', component: { template: '<div><search-box placeholder="Search shops..."></search-box><div class="row"><shop-card v-for="shop in $store.getters.filteredShops" :key="shop.shopid" :shop="shop" class="col-md-4"></shop-card></div></div>' } },
+        { path: '/shop/:shopid', name: 'shop-details', component: { template: '<div><search-box placeholder="Search menu items..."></search-box><div class="row"><item-card v-for="item in $store.getters.filteredItems" :key="item.itemid" :item="item" class="col-md-4"></item-card></div></div>' } },
+        { path: '/cart', component: Cart }
   ];
 
   const router = new VueRouter({
@@ -1294,19 +1524,6 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
       }
     }
   });
-</script>
-
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2565212622944555"
-     crossorigin="anonymous"></script>
-<!-- ads1 -->
-<ins class="adsbygoogle"
-     style="display:block"
-     data-ad-client="ca-pub-2565212622944555"
-     data-ad-slot="3191040703"
-     data-ad-format="auto"
-     data-full-width-responsive="true"></ins>
-<script>
-     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
 
 </body>

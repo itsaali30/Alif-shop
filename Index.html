@@ -1297,8 +1297,19 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
           <h4>Total Price: ₹{{ totalPrice }}</h4>
         </div>
       </div>
+      <div class="">
+      <button class="btn btn-success" @click="place()">
+              <i class="fas fa-dollar"></i> place order
+            </button>
+      
+      </div>
     </div>
   </script>
+  <style>
+  .n{
+      margin-bottom:0;
+  }
+  </style>
 <script>
  Vue.component('shop-card', {
       props: ['shop'],
@@ -1510,8 +1521,10 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
       };
     },
     mounted () {
+        
         setTimeout(() => {
         this.showSplash = false;
+        this.route.push("/");
       }, 2000);
     },
     methods: {

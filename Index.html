@@ -107,10 +107,9 @@
             display: flex;
             justify-content: center;
             margin-bottom: 20px;
-        }
-        .search-bar input {
-            padding: 10px;
-            width: 80%;
+      
+            padding: 15px;
+            width: 90%;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
@@ -274,7 +273,7 @@
   }
   /*profile */
 
-#card2,input,#ph1{
+#card2,#ph1{
     --border-size: 4px;
     --border-angle: 0turn;
 
@@ -937,12 +936,8 @@ const config = {
       
     </div>
     <hr>
-    <div class="d-flex search-bar my-4 align-items-center  ">
-      <input v-model="searchQuery" placeholder="Search for 'Atta'" class="form-control me-2" style="max-width: 400px;">
-      <i class="fas fa-search fa-2x" style="color:#66cc33; margin-left: 0px; cursor: pointer;" @click="search"></i>
-      <i class="fas fa-microphone fa-2x" style="color:#66cc33; margin-left: 10px; cursor: pointer;" @click="voiceSearch"></i>
-    </div>
-      
+    <search-box placeholder="Search shops..."></search-box>
+    
     <!-- promotions merchant -->
   <div id="demo" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" >
 
@@ -1094,6 +1089,7 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
       this.getlocation=this.lat+","+this.long;
       
       
+      
     },
       search(){
         alert(this.searchQuery);
@@ -1228,12 +1224,11 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
   </script>
 
   <script type="text/x-template" id="search-box-template">
-    <input 
-      v-model="searchQuery" 
-      @input="onSearch" 
-      class="form-control mb-3" 
-      :placeholder="placeholder"
-    />
+        <div class="search-bar my-4 align-items-center  ">
+      <input v-model="$store.state.searchQuery" :placeholder="placeholder" class="form-control me-2" style="max-width: 400px;"  @input="onSearch">
+      <i class="fas fa-search fa-2x" style="color:#66cc33; margin-left: 0px; cursor: pointer;" @click="onSearch"></i>
+      <i class="fas fa-microphone fa-2x" style="color:#66cc33; margin-left: 10px; cursor: pointer;" @click="startRecognition"></i>
+            </div>
   </script>
 
   <script type="text/x-template" id="item-card-template">
@@ -1316,23 +1311,46 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
       template: '#shop-card-template'
     });
 
-    Vue.component('search-box', {
+ Vue.component('search-box', {
       props: ['placeholder'],
-      template: '#search-box-template',
+      
+       template: '#search-box-template',
       computed: {
-        searchQuery: {
-          get() {
-            return this.$store.state.searchQuery;
-          },
-          set(value) {
-            this.$store.commit('SET_SEARCH_QUERY', value);
-          }
-        }
+    searchQuery: {
+      get() {
+        return this.$store.state.searchQuery;
       },
+      set(value) {
+        this.$store.commit('SET_SEARCH_QUERY', value);
+      }
+    }
+  },
       methods: {
         onSearch() {
           this.$store.commit('SET_SEARCH_QUERY', this.$store.state.searchQuery);
-        }
+        },
+        startRecognition() {
+          if ('webkitSpeechRecognition' in window) {
+            const recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onresult = (event) => {
+              this.searchQuery = event.results[0][0].transcript;
+              this.onSearch();
+            };
+
+            recognition.onerror = (event) => {
+              console.error("Speech recognition error detected: " + event.error);
+              alert("Error occurred in recognition: " + event.error);
+            };
+
+            recognition.start();
+          } else {
+            alert("Your browser does not support speech recognition.");
+          }
+        },
       }
     });
 

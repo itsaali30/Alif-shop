@@ -932,7 +932,7 @@ const config = {
 
     <div class="d-flex dark justify-content-center my-3" @click="getLocation">
       <i class="fas fa-location-dot fa-2x" style="color:#66cc33; margin-right: 10px;"></i>           
-      <h3 class="m-0">{{getlocation}}</h3>
+      <h3 class="m-0">{{truncatedLocation}}</h3>
       
     </div>
     <hr>
@@ -1042,6 +1042,7 @@ const config = {
 </script>
 <script>
 const Homec = {
+    props: ['shop'],
     template: '#home',data() {
     return {
       address: "",
@@ -1050,15 +1051,25 @@ const Homec = {
       getlocation:"hyderabad",
     };
   },
+  computed: {
+        truncatedLocation() {
+          return this.getlocation.length > 30 ? this.getlocation.substring(0, 30) + '...' : this.getlocation;
+        }
+      },
   mounted() { 
+  
   if(this.getlocation.length===21){
       
       setInterval(this.getLocation, 1000);
+      
       
       alert("not fetch your location please allow & open gps");
       
       }else{ 
       this.getLocation();
+      return this.getlocation.length > 30
+        ? this.getlocation.substring(0, 30) + '...' // Truncate and add ellipsis
+        : this.getlocation;
  };
   
   const url = this.$store.state.Adsurl; 
@@ -1084,19 +1095,29 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
       }
     },
     showPosition(position) {
-      this.lat = position.coords.latitude;
-      this.long = position.coords.longitude;
-      this.getlocation=this.lat+","+this.long;
+          this.lat = position.coords.latitude;
+          this.long = position.coords.longitude;
+
+          // Fetch address from Nominatim API
+          const urlG = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${this.lat}&lon=${this.long}`;
+          axios
+            .get(urlG)
+            .then(res => {
+              this.getlocation= res.data.display_name;
+              this.fetching = false;
+            })
+            .catch(error => {
+              this.errorMessage = "Error fetching location data.";
+              this.fetching = false;
+            });
+       
+      
       
       
       
     },
-      search(){
-        alert(this.searchQuery);
-    },
-    voiceSearch(){
-        alert(this.searchQuery);
-    },
+    
+      
     goToFoodRoute() {
       this.$router.push("/Restaurant");
       
@@ -1308,7 +1329,11 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
 <script>
  Vue.component('shop-card', {
       props: ['shop'],
-      template: '#shop-card-template'
+      template: '#shop-card-template',
+      mounted(){
+          this.$store.state.searchQuery='';
+      },
+      methods:{}
     });
 
  Vue.component('search-box', {
@@ -1327,7 +1352,9 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
   },
       methods: {
         onSearch() {
+           
           this.$store.commit('SET_SEARCH_QUERY', this.$store.state.searchQuery);
+          
         },
         startRecognition() {
           if ('webkitSpeechRecognition' in window) {
@@ -1362,16 +1389,22 @@ const carousel = new bootstrap.Carousel(myCarouselElement, {
         };
       },
       template: '#item-card-template',
+      mounted(){
+          this.$store.state.searchQuery='';
+      },
       methods: {
         increaseQty() {
+            this.$store.state.searchQuery='';
           this.quantity++;
         },
         decreaseQty() {
+            this.$store.state.searchQuery='';
           if (this.quantity > 1) {
             this.quantity--;
           }
         },
         addToCart() {
+            this.$store.state.searchQuery='';
           this.$store.commit('ADD_TO_CART', { item: this.item, quantity: this.quantity });
           alert(`${this.item.itemname} added to cart!`);
         }
